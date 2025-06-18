@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calci</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            background-color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+            width: 360px;
+        }
+        .title {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            animation: colorCycle 15s infinite linear; /* Color animation */
+        }
+        @keyframes colorCycle {
+            0% { color: #ff073a; } /* Neon Red */
+            6.25% { color: #00ff7f; } /* Spring Green */
+            12.5% { color: #1e90ff; } /* Dodger Blue */
+            18.75% { color: #ff00ff; } /* Magenta */
+            25% { color: #ffff00; } /* Bright Yellow */
+            31.25% { color: #00ffff; } /* Cyan */
+            37.5% { color: #ff4500; } /* Orange Red */
+            43.75% { color: #9400d3; } /* Dark Violet */
+            50% { color: #39ff14; } /* Neon Green */
+            56.25% { color: #ffd700; } /* Gold */
+            62.5% { color: #ff1493; } /* Deep Pink */
+            68.75% { color: #00b7eb; } /* Sky Blue */
+            75% { color: #ff6347; } /* Tomato */
+            81.25% { color: #adff2f; } /* Green Yellow */
+            87.5% { color: #708090; } /* Slate Gray */
+            93.75% { color: #4169e1; } /* Royal Blue */
+            100% { color: #ff073a; } /* Back to Neon Red */
+        }
+        #display {
+            width: 100%;
+            height: 60px;
+            font-size: 28px;
+            text-align: right;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #333;
+            box-sizing: border-box;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            gap: 8px;
+        }
+        button {
+            background-color: #fff9b0;
+            color : #333;
+            width: 80px;
+            height: 80px;
+            font-size: 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        /* Radiant number buttons */
+        
+        /* Radiant operator buttons */
+        
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="title">Vivek Calc</div>
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button id="btn-7">7</button>
+            <button id="btn-8">8</button>
+            <button id="btn-9">9</button>
+            <button id="btn-add">+</button>
+            <button id="btn-4">4</button>
+            <button id="btn-5">5</button>
+            <button id="btn-6">6</button>
+            <button id="btn-subtract">-</button>
+            <button id="btn-1">1</button>
+            <button id="btn-2">2</button>
+            <button id="btn-3">3</button>
+            <button id="btn-multiply">×</button>
+            <button id="btn-0">0</button>
+            <button id="btn-clear">C</button>
+            <button id="btn-equal">=</button>
+            <button id="btn-divide">÷</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const display = document.getElementById('display');
+        const buttons = document.querySelectorAll('button');
+
+        // Color map for sprinkle effects (hex codes matching button backgrounds)
+        const colorMap = {
+            'btn-1': '#ff073a', 'btn-2': '#00ff7f', 'btn-3': '#1e90ff',
+            'btn-4': '#ff00ff', 'btn-5': '#ffff00', 'btn-6': '#00ffff',
+            'btn-7': '#ff4500', 'btn-8': '#9400d3', 'btn-9': '#39ff14',
+            'btn-0': '#ffd700', 'btn-add': '#ff1493', 'btn-subtract': '#00b7eb',
+            'btn-multiply': '#ff6347', 'btn-divide': '#adff2f',
+            'btn-clear': '#708090', 'btn-equal': '#4169e1'
+        };
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.textContent;
+                const buttonId = button.id;
+                // Trigger enhanced sprinkle effect
+                
+
+                // Handle calculator logic
+                if (value === 'C') {
+                    display.value = '';
+                } else if (value === '=') {
+                    try {
+                        // Replace × and ÷ with * and / for eval
+                        let expression = display.value.replace(/×/g, '*').replace(/÷/g, '/');
+                        display.value = eval(expression) || '0';
+                    } catch {
+                        display.value = 'Error';
+                    }
+                } else {
+                    // Map display symbols
+                    const displayValue = value === '×' ? '×' : value === '÷' ? '÷' : value;
+                    display.value += displayValue;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
